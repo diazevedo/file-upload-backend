@@ -68,6 +68,10 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/test", (req, res) => {
+  return res.json({ message: "ok" });
+});
+
 app.get("/files/:filename", async (req, res) => {
   gfs
     .find({
