@@ -14,7 +14,15 @@ const app = express();
 
 app.use(cors());
 // connection
-const conn = mongoose.createConnection(
+// const conn = mongoose.createConnection(
+//   "mongodb+srv://file:file-dap190706@cluster0.flyo0.mongodb.net/file-uploader?retryWrites=true&w=majority",
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   }
+// );
+
+const promise = mongoose.connect(
   "mongodb+srv://file:file-dap190706@cluster0.flyo0.mongodb.net/file-uploader?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
@@ -22,6 +30,7 @@ const conn = mongoose.createConnection(
   }
 );
 
+const conn = mongoose.connection;
 // init gfs
 let gfs;
 conn.once("open", () => {
@@ -32,7 +41,8 @@ conn.once("open", () => {
 
 // Storage
 const storage = new GridFsStorage({
-  url: process.env.MONGO_URL,
+  // url: process.env.MONGO_URL,
+  db: promise,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(16, (err, buf) => {
