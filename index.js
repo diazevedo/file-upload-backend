@@ -94,6 +94,12 @@ app.post("/files", upload.single("file"), (req, res) => {
   });
 });
 
+app.post("/edit", (req, res) => {
+  res.status(201).json({
+    message: "post working",
+  });
+});
+
 const port = process.env.PORT || 3333;
 
 app.listen(port, () =>
