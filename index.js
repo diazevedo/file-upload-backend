@@ -14,10 +14,13 @@ const app = express();
 
 app.use(cors());
 // connection
-const conn = mongoose.createConnection(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const conn = mongoose.createConnection(
+  "mongodb+srv://file:file-dap190706@cluster0.flyo0.mongodb.net/file-uploader?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // init gfs
 let gfs;
@@ -88,6 +91,7 @@ app.post("/files", upload.single("file"), (req, res) => {
 });
 
 const port = process.env.PORT || 3333;
+
 app.listen(port, () =>
   console.log(`Server running on ${port}, http://localhost:${port}`)
 );
