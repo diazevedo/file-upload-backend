@@ -6,10 +6,13 @@ const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 const dotenv = require("dotenv");
 
+const cors = require("cors");
+
 dotenv.config();
 
 const app = express();
 
+app.use(cors());
 // connection
 const conn = mongoose.createConnection(process.env.MONGO_URL, {
   useNewUrlParser: true,
